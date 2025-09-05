@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>果汁调酒添加量计算器</title>
+  <style>
+    :root { --bg:#f8fafc; --card:#ffffff; --fg:#0f172a; --muted:#475569; --border:#e2e8f0; --accent:#f1f5f9;}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(#fff,var(--bg));color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue","Noto Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,"Apple Color Emoji","Segoe UI Emoji";}
+    .wrap{max-width:900px;margin:0 auto;padding:28px 16px 48px;}
+    h1{font-size:28px;margin:0 0 8px;font-weight:800;}
+    p.sub{margin:0 0 24px;color:var(--muted)}
+    .grid{display:grid;gap:16px;grid-template-columns:1fr}
+    @media(min-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+    label{font-size:14px;font-weight:600;color:#334155}
+    input{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:16px;outline:none}
+    input:focus{border-color:#94a3b8;box-shadow:0 0 0 3px #e2e8f0}
+    .hint{margin-top:8px;font-size:12px;color:#64748b}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer}
+    .chip:hover{background:#f8fafc}
+    .result{display:grid;gap:12px;grid-template-columns:1fr}
+    @media(min-width:700px){.result{grid-template-columns:repeat(3,1fr)}}
+    .stat{background:var(--accent);border-radius:12px;padding:14px}
+    .stat .k{font-size:12px;color:#64748b}
+    .stat .v{margin-top:2px;font-size:24px;font-weight:800}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    button{border:1px solid var(--border);background:#fff;border-radius:12px;padding:8px 12px;font-size:14px;cursor:pointer}
+    button:hover{background:#f8fafc}
+    button[disabled]{opacity:.5;cursor:not-allowed}
+    .err{margin-top:12px;border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px;font-size:14px}
+    footer{margin-top:28px;text-align:center;font-size:12px;color:#64748b}
+    code{background:#f1f5f9;border-radius:6px;padding:2px 6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>果汁调酒添加量计算器</h1>
+    <p class="sub">输入果汁体积 (ml)、原酒度数 (%vol) 与目标度数 (%vol)，自动计算需添加的该酒体积。</p>
+
+    <div class="grid">
+      <div class="card">
+        <label>果汁体积 (ml)</label>
+        <input id="juice" type="number" inputmode="decimal" placeholder="例如 500" min="0" step="1">
+        <div class="hint">可为 0 或更大整数/小数。</div>
+      </div>
+
+      <div class="card">
+        <label>原酒度数 (%vol)</label>
+        <input id="orig" type="number" inputmode="decimal" placeholder="例如 40（伏特加）" min="0" max="100" step="0.1">
+        <div class="row" style="margin-top:8px">
+          <button class="chip" data-orig="5" title="常见啤酒">5%</button>
+          <button class="chip" data-orig="12" title="常见葡萄酒">12%</button>
+          <button class="chip" data-orig="40" title="常见烈酒">40%</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>目标度数 (%vol)</label>
+        <input id="target" type="number" inputmode="decimal" placeholder="例如 8" min="0" max="100" step="0.1">
+        <div class="hint">最终混合饮品的目标酒精度（按体积百分比）。</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:700;font-size:18px">结果</div>
+          <div class="hint">公式：<code>Va = (Pt × Vj) / (Pa − Pt)</code></div>
+        </div>
+        <div class="toolbar">
+          <button id="fill">填入示例</button>
+          <button id="copy" disabled>复制结果</button>
+        </div>
+      </div>
+
+      <div class="result" style="margin-top:12px">
+        <div class="stat">
+          <div class="k">需添加该酒</div>
+          <div id="va" class="v">— <span style="font-size:14px;font-weight:600">ml</span></div>
+        </div>
+        <div class="stat">
+          <div class="k">混合后总体积</div>
+          <div id="vt" class="v">— <span style="font-size:14px;font-weight:600">ml</span></div>
+        </div>
+        <div class="stat">
+          <div class="k">校验：实际度数</div>
+          <div id="chk" class="v">— <span style="font-size:14px;font-weight:600">%vol</span></div>
+        </div>
+      </div>
+
+      <div id="err" class="err" style="display:none"></div>
+
+      <div class="hint" style="margin-top:10px">
+        示例：果汁 500 ml、原酒 40%、目标 8% → 需添加约 125 ml。
+      </div>
+    </div>
+
+    <footer>© <span id="year"></span> 53° 雲 · 请理性饮酒（Do not serve alcohol to minors）</footer>
+  </div>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const juice = $("#juice");
+    const orig = $("#orig");
+    const target = $("#target");
+    const va = $("#va");
+    const vt = $("#vt");
+    const chk = $("#chk");
+    const err = $("#err");
+    const copyBtn = $("#copy");
+
+    function fmt(v, d=1){ return (!isFinite(v) || isNaN(v)) ? "—" : Number(v.toFixed(d)).toString(); }
+
+    function compute(){
+      const Vj = parseFloat(juice.value);
+      const Pa = parseFloat(orig.value);
+      const Pt = parseFloat(target.value);
+
+      const validVj = !isNaN(Vj) && Vj >= 0;
+      const validPa = !isNaN(Pa) && Pa > 0 && Pa <= 100;
+      const validPt = !isNaN(Pt) && Pt >= 0 && Pt <= 100;
+
+      let message = null;
+      let Va = NaN, Vtotal = NaN;
+
+      if (!validVj || !validPa || !validPt){
+        message = "请输入有效数字（体积≥0，度数在 0–100 之间）。";
+      } else if (Pt === 0){
+        Va = 0; Vtotal = Vj; message = null;
+      } else if (Pa <= Pt){
+        message = "无法达成：原酒度数必须高于目标度数。";
+      } else {
+        Va = (Pt * Vj) / (Pa - Pt);
+        Vtotal = Vj + Va;
+      }
+
+      va.innerHTML  = fmt(Va, 1) + ' <span style="font-size:14px;font-weight:600">ml</span>';
+      vt.innerHTML  = fmt(Vtotal, 1) + ' <span style="font-size:14px;font-weight:600">ml</span>';
+      const real = isFinite(Va) ? (Va * Pa) / (Vj + Va) : NaN;
+      chk.innerHTML = fmt(real, 2) + ' <span style="font-size:14px;font-weight:600">%vol</span>';
+
+      if (message){
+        err.style.display = "";
+        err.textContent = message;
+        copyBtn.disabled = true;
+      } else {
+        err.style.display = "none";
+        copyBtn.disabled = !(isFinite(Va) && Va >= 0);
+      }
+    }
+
+    // Event bindings
+    ["input","change"].forEach(evt => {
+      juice.addEventListener(evt, compute);
+      orig.addEventListener(evt, compute);
+      target.addEventListener(evt, compute);
+    });
+
+    // Quick fill
+    document.querySelectorAll(".chip").forEach(b=>{
+      b.addEventListener("click", ()=>{ orig.value = b.getAttribute("data-orig"); compute(); });
+    });
+    $("#fill").addEventListener("click", ()=>{
+      juice.value = "500"; orig.value = "40"; target.value = "8"; compute();
+    });
+
+    // Copy
+    copyBtn.addEventListener("click", async ()=>{
+      const Vj = parseFloat(juice.value);
+      const Pa = parseFloat(orig.value);
+      const Pt = parseFloat(target.value);
+      const Va = (Pt * Vj) / (Pa - Pt);
+      const Vt = Vj + Va;
+      const text = `${fmt(Va,1)} ml（需添加量）\n总量：${fmt(Vt,1)} ml\n参数：果汁 ${fmt(Vj,1)} ml，原酒 ${fmt(Pa,2)}%vol → 目标 ${fmt(Pt,2)}%vol`;
+      try{ await navigator.clipboard.writeText(text); copyBtn.textContent = "已复制"; setTimeout(()=>copyBtn.textContent="复制结果",1200);}catch{}
+    });
+
+    // Init
+    document.getElementById("year").textContent = new Date().getFullYear();
+    compute();
+  </script>
+</body>
+</html>
