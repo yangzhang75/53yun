@@ -3,101 +3,226 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>微醺果伴</title>
+  <title>微醺之度 · 53° 雲 · 清香 / 酱香 / 浓香</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f8fafc; --card:#ffffff; --fg:#0f172a; --muted:#475569; --border:#e2e8f0; --accent:#f1f5f9;}
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(#fff,var(--bg));color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue","Noto Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,"Apple Color Emoji","Segoe UI Emoji";}
-    .wrap{max-width:900px;margin:0 auto;padding:28px 16px 48px;}
-    h1{font-size:28px;margin:0 0 8px;font-weight:800;}
-    p.sub{margin:0 0 24px;color:var(--muted)}
+    :root{
+      --ink:#0a0a0c;            /* 墨黑底 */
+      --ink-2:#111114;
+      --panel:#16161a;          /* 卡片 */
+      --panel-2:#1c1c22;
+      --line:rgba(196,164,99,.22);/* 烫金描边 */
+      --line-soft:rgba(255,255,255,.06);
+      --gold:#c4a463;           /* 烫金 */
+      --gold-2:#e8d9a8;         /* 亮金 */
+      --gold-deep:#9a7e44;
+      --fg:#efeae0;             /* 米白文字 */
+      --muted:#8d8a82;
+      --err:#d98b78;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;color:var(--fg);
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(196,164,99,.10), transparent 60%),
+        radial-gradient(800px 500px at 90% 110%, rgba(196,164,99,.06), transparent 60%),
+        linear-gradient(180deg,#0c0c0e 0%, var(--ink) 40%, #08080a 100%);
+      background-attachment:fixed;
+      font-family:"Noto Serif SC",ui-serif,Georgia,"Songti SC",serif;
+      -webkit-font-smoothing:antialiased;
+      letter-spacing:.2px;
+    }
+    /* 雾气漂浮层 */
+    .mist{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+      background:radial-gradient(600px 300px at 20% 30%, rgba(232,217,168,.05), transparent 70%),
+                 radial-gradient(500px 260px at 80% 70%, rgba(232,217,168,.04), transparent 70%);
+      animation:drift 16s ease-in-out infinite alternate;}
+    @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-18px,0)}}
+
+    .wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:54px 18px 60px;}
+
+    /* 品牌头 */
+    .brand{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:30px;
+      opacity:0;animation:rise .9s .05s cubic-bezier(.2,.7,.2,1) forwards;}
+    .brand .seal{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+      border:1px solid var(--line);background:radial-gradient(circle at 35% 30%, #1d1d22, #0c0c0e);
+      box-shadow:0 0 0 1px rgba(196,164,99,.12), inset 0 0 18px rgba(196,164,99,.08);}
+    .brand .seal b{font-size:16px;font-weight:900;
+      background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .brand .name{font-size:13px;letter-spacing:6px;color:var(--gold);font-weight:700;text-transform:uppercase;}
+
+    .hero{text-align:center;margin-bottom:40px;}
+    h1{font-size:clamp(30px,6vw,46px);margin:0;font-weight:900;line-height:1.18;
+      opacity:0;animation:rise 1s .12s cubic-bezier(.2,.7,.2,1) forwards;}
+    h1 .accent{background:linear-gradient(120deg,var(--gold-2) 10%, var(--gold) 45%, var(--gold-deep) 90%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;}
+    .hero .latin{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;color:var(--gold);
+      margin-top:10px;letter-spacing:1px;opacity:0;animation:rise 1s .2s cubic-bezier(.2,.7,.2,1) forwards;}
+    .hero .sub{margin:16px auto 0;max-width:560px;color:var(--muted);font-size:15px;line-height:1.7;font-weight:500;
+      opacity:0;animation:rise 1s .28s cubic-bezier(.2,.7,.2,1) forwards;}
+    .rule{width:64px;height:1px;margin:22px auto 0;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      opacity:0;animation:fade 1.2s .4s forwards;}
+
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @keyframes fade{to{opacity:1}}
+
     .grid{display:grid;gap:16px;grid-template-columns:1fr}
-    @media(min-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-    label{font-size:14px;font-weight:600;color:#334155}
-    input{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:16px;outline:none}
-    input:focus{border-color:#94a3b8;box-shadow:0 0 0 3px #e2e8f0}
-    .hint{margin-top:8px;font-size:12px;color:#64748b}
+    @media(min-width:820px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+    .card{position:relative;background:linear-gradient(180deg,var(--panel),var(--ink-2));
+      border:1px solid var(--line-soft);border-radius:18px;padding:20px;
+      box-shadow:0 18px 40px -24px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.03);
+      opacity:0;animation:rise .9s forwards;}
+    .grid .card:nth-child(1){animation-delay:.34s}
+    .grid .card:nth-child(2){animation-delay:.42s}
+    .grid .card:nth-child(3){animation-delay:.5s}
+    .card:hover{border-color:var(--line)}
+    .card .idx{font-family:"Cormorant Garamond",serif;font-size:13px;color:var(--gold-deep);letter-spacing:2px}
+    label{display:block;font-size:14px;font-weight:700;color:var(--gold-2);margin-top:4px;letter-spacing:1px}
+
+    input{width:100%;margin-top:12px;color:var(--fg);background:rgba(0,0,0,.32);
+      border:1px solid var(--line-soft);border-radius:12px;padding:13px 14px;font-size:18px;outline:none;
+      font-family:"Cormorant Garamond","Noto Serif SC",serif;font-weight:600;transition:.25s;}
+    input::placeholder{color:#5d5b55;font-weight:500}
+    input:focus{border-color:var(--gold);background:rgba(196,164,99,.06);
+      box-shadow:0 0 0 3px rgba(196,164,99,.12)}
+    .hint{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5;font-weight:500}
+
     .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer}
-    .chip:hover{background:#f8fafc}
-    .result{display:grid;gap:12px;grid-template-columns:1fr}
-    @media(min-width:700px){.result{grid-template-columns:repeat(3,1fr)}}
-    .stat{background:var(--accent);border-radius:12px;padding:14px}
-    .stat .k{font-size:12px;color:#64748b}
-    .stat .v{margin-top:2px;font-size:24px;font-weight:800}
-    .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    button{border:1px solid var(--border);background:#fff;border-radius:12px;padding:8px 12px;font-size:14px;cursor:pointer}
-    button:hover{background:#f8fafc}
-    button[disabled]{opacity:.5;cursor:not-allowed}
-    .err{margin-top:12px;border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px;font-size:14px}
-    footer{margin-top:28px;text-align:center;font-size:12px;color:#64748b}
-    code{background:#f1f5f9;border-radius:6px;padding:2px 6px}
+    .chip{border:1px solid var(--line);background:transparent;color:var(--gold-2);
+      border-radius:999px;padding:5px 13px;font-size:12px;cursor:pointer;font-family:"Noto Serif SC",serif;
+      letter-spacing:.5px;transition:.2s}
+    .chip:hover{background:rgba(196,164,99,.12);color:#fff;transform:translateY(-1px)}
+
+    .panel{margin-top:18px;position:relative;background:linear-gradient(180deg,var(--panel),var(--ink-2));
+      border:1px solid var(--line);border-radius:20px;padding:22px;
+      box-shadow:0 24px 60px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.04);
+      opacity:0;animation:rise .9s .58s forwards;}
+    .panel-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+    .panel-head .title{font-size:20px;font-weight:900;color:var(--gold-2)}
+    .panel-head .formula{margin-top:6px;font-size:12px;color:var(--muted)}
+    code{font-family:"Cormorant Garamond",monospace;background:rgba(196,164,99,.1);color:var(--gold-2);
+      border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-size:13px}
+
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    button{font-family:"Noto Serif SC",serif;border:1px solid var(--line);background:transparent;color:var(--gold-2);
+      border-radius:12px;padding:10px 16px;font-size:14px;cursor:pointer;letter-spacing:1px;transition:.22s}
+    button:hover{background:rgba(196,164,99,.1);color:#fff}
+    button.primary{background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));color:#1a140a;border-color:transparent;font-weight:700}
+    button.primary:hover{filter:brightness(1.08)}
+    button[disabled]{opacity:.35;cursor:not-allowed;filter:none}
+
+    .result{display:grid;gap:14px;grid-template-columns:1fr;margin-top:18px}
+    @media(min-width:680px){.result{grid-template-columns:repeat(3,1fr)}}
+    .stat{position:relative;background:radial-gradient(120% 120% at 0% 0%, rgba(196,164,99,.07), transparent 60%),var(--panel-2);
+      border:1px solid var(--line-soft);border-radius:14px;padding:16px;overflow:hidden}
+    .stat.hero-stat{border-color:var(--line);box-shadow:inset 0 0 24px rgba(196,164,99,.06)}
+    .stat .k{font-size:12px;color:var(--muted);letter-spacing:1px}
+    .stat .v{margin-top:6px;font-size:30px;font-weight:900;
+      font-family:"Cormorant Garamond","Noto Serif SC",serif;
+      background:linear-gradient(180deg,#fff,var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent;
+      transition:opacity .2s}
+    .stat .v.flash{animation:flash .5s}
+    @keyframes flash{0%{opacity:.3}100%{opacity:1}}
+    .stat .v .u{font-size:14px;font-weight:600;color:var(--gold);-webkit-text-fill-color:var(--gold)}
+
+    .err{margin-top:16px;border:1px solid rgba(217,139,120,.4);background:rgba(217,139,120,.08);
+      color:var(--err);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:500}
+
+    footer{margin-top:42px;text-align:center;font-size:12px;color:var(--muted);line-height:1.9;letter-spacing:.5px}
+    footer .gold{color:var(--gold)}
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important}
+      .brand,.hero *,.card,.panel{opacity:1 !important}
+    }
   </style>
 </head>
 <body>
+  <div class="mist"></div>
   <div class="wrap">
-    <h1>果汁调酒添加量计算器</h1>
-    <p class="sub">输入果汁体积 (ml)、原酒度数 (%vol) 与目标度数 (%vol)，自动计算需添加的该酒体积。</p>
+
+    <div class="brand">
+      <span class="seal"><b>53°</b></span>
+      <span class="name">雲 · YÚN</span>
+    </div>
+
+    <div class="hero">
+      <h1>微醺<span class="accent">之度</span></h1>
+      <div class="latin">Clear · Sauce · Strong — The Art of Degree</div>
+      <p class="sub">清香、酱香、浓香——53° 的庄重，亦可调出微醺的从容。<br>输入饮品体积、原酒与目标度数，为你算出恰到好处的那一份。</p>
+      <div class="rule"></div>
+    </div>
 
     <div class="grid">
       <div class="card">
-        <label>果汁体积 (ml)</label>
+        <div class="idx">01</div>
+        <label>果汁体积 · ML</label>
         <input id="juice" type="number" inputmode="decimal" placeholder="例如 500" min="0" step="1">
-        <div class="hint">可为 0 或更大整数/小数。</div>
+        <div class="hint">可为 0 或更大整数 / 小数。</div>
       </div>
 
       <div class="card">
-        <label>原酒度数 (%vol)</label>
-        <input id="orig" type="number" inputmode="decimal" placeholder="例如 40（伏特加）" min="0" max="100" step="0.1">
-        <div class="row" style="margin-top:8px">
-          <button class="chip" data-orig="5" title="常见啤酒">5%</button>
-          <button class="chip" data-orig="12" title="常见葡萄酒">12%</button>
-          <button class="chip" data-orig="40" title="常见烈酒">40%</button>
+        <div class="idx">02</div>
+        <label>原酒度数 · %VOL</label>
+        <input id="orig" type="number" inputmode="decimal" placeholder="例如 53（酱香）" min="0" max="100" step="0.1">
+        <div class="row" style="margin-top:12px">
+          <button class="chip" data-orig="53" title="清香型 · 净爽">清香 53°</button>
+          <button class="chip" data-orig="52" title="浓香型 · 窖香">浓香 52°</button>
+          <button class="chip" data-orig="53" title="酱香型 · 醇厚">酱香 53°</button>
         </div>
       </div>
 
       <div class="card">
-        <label>目标度数 (%vol)</label>
+        <div class="idx">03</div>
+        <label>目标度数 · %VOL</label>
         <input id="target" type="number" inputmode="decimal" placeholder="例如 8" min="0" max="100" step="0.1">
-        <div class="hint">最终混合饮品的目标酒精度（按体积百分比）。</div>
+        <div class="hint">最终微醺饮品的目标酒精度（体积百分比）。</div>
       </div>
     </div>
 
-    <div class="card" style="margin-top:16px">
-      <div class="row" style="justify-content:space-between;align-items:center">
+    <div class="panel">
+      <div class="panel-head">
         <div>
-          <div style="font-weight:700;font-size:18px">结果</div>
-          <div class="hint">公式：<code>Va = (Pt × Vj) / (Pa − Pt)</code></div>
+          <div class="title">调制结果</div>
+          <div class="formula">公式 · <code>Va = (Pt × Vj) / (Pa − Pt)</code></div>
         </div>
         <div class="toolbar">
           <button id="fill">填入示例</button>
-          <button id="copy" disabled>复制结果</button>
+          <button id="copy" class="primary" disabled>复制配方</button>
         </div>
       </div>
 
-      <div class="result" style="margin-top:12px">
-        <div class="stat">
+      <div class="result">
+        <div class="stat hero-stat">
           <div class="k">需添加该酒</div>
-          <div id="va" class="v">— <span style="font-size:14px;font-weight:600">ml</span></div>
+          <div id="va" class="v">— <span class="u">ml</span></div>
         </div>
         <div class="stat">
           <div class="k">混合后总体积</div>
-          <div id="vt" class="v">— <span style="font-size:14px;font-weight:600">ml</span></div>
+          <div id="vt" class="v">— <span class="u">ml</span></div>
         </div>
         <div class="stat">
-          <div class="k">校验：实际度数</div>
-          <div id="chk" class="v">— <span style="font-size:14px;font-weight:600">%vol</span></div>
+          <div class="k">校验 · 实际度数</div>
+          <div id="chk" class="v">— <span class="u">%vol</span></div>
         </div>
       </div>
 
       <div id="err" class="err" style="display:none"></div>
 
-      <div class="hint" style="margin-top:10px">
-        示例：果汁 500 ml、原酒 40%、目标 8% → 需添加约 125 ml。
+      <div class="hint" style="margin-top:14px">
+        示例：果汁 500 ml、原酒 53°、目标 8° → 需添加约 88.9 ml。
       </div>
     </div>
 
-    <footer>© <span id="year"></span> 53° 雲 · 请理性饮酒（Do not serve alcohol to minors）</footer>
+    <footer>
+      © <span id="year"></span> &nbsp;<span class="gold">53° 雲 · YÚN</span>&nbsp; — 清香 · 酱香 · 浓香<br>
+      请理性饮酒 · 未成年人请勿饮酒（Do not serve alcohol to minors）
+    </footer>
   </div>
 
   <script>
@@ -113,6 +238,8 @@
 
     function fmt(v, d=1){ return (!isFinite(v) || isNaN(v)) ? "—" : Number(v.toFixed(d)).toString(); }
 
+    function flash(el){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+
     function compute(){
       const Vj = parseFloat(juice.value);
       const Pa = parseFloat(orig.value);
@@ -126,7 +253,7 @@
       let Va = NaN, Vtotal = NaN;
 
       if (!validVj || !validPa || !validPt){
-        message = "请输入有效数字（体积≥0，度数在 0–100 之间）。";
+        message = "请输入有效数字（体积 ≥ 0，度数在 0–100 之间）。";
       } else if (Pt === 0){
         Va = 0; Vtotal = Vj; message = null;
       } else if (Pa <= Pt){
@@ -136,10 +263,10 @@
         Vtotal = Vj + Va;
       }
 
-      va.innerHTML  = fmt(Va, 1) + ' <span style="font-size:14px;font-weight:600">ml</span>';
-      vt.innerHTML  = fmt(Vtotal, 1) + ' <span style="font-size:14px;font-weight:600">ml</span>';
+      va.innerHTML  = fmt(Va, 1) + ' <span class="u">ml</span>';
+      vt.innerHTML  = fmt(Vtotal, 1) + ' <span class="u">ml</span>';
       const real = isFinite(Va) ? (Va * Pa) / (Vj + Va) : NaN;
-      chk.innerHTML = fmt(real, 2) + ' <span style="font-size:14px;font-weight:600">%vol</span>';
+      chk.innerHTML = fmt(real, 2) + ' <span class="u">%vol</span>';
 
       if (message){
         err.style.display = "";
@@ -148,6 +275,7 @@
       } else {
         err.style.display = "none";
         copyBtn.disabled = !(isFinite(Va) && Va >= 0);
+        if (isFinite(Va)){ flash(va); flash(vt); flash(chk); }
       }
     }
 
@@ -163,7 +291,7 @@
       b.addEventListener("click", ()=>{ orig.value = b.getAttribute("data-orig"); compute(); });
     });
     $("#fill").addEventListener("click", ()=>{
-      juice.value = "500"; orig.value = "40"; target.value = "8"; compute();
+      juice.value = "500"; orig.value = "53"; target.value = "8"; compute();
     });
 
     // Copy
@@ -173,8 +301,8 @@
       const Pt = parseFloat(target.value);
       const Va = (Pt * Vj) / (Pa - Pt);
       const Vt = Vj + Va;
-      const text = `${fmt(Va,1)} ml（需添加量）\n总量：${fmt(Vt,1)} ml\n参数：果汁 ${fmt(Vj,1)} ml，原酒 ${fmt(Pa,2)}%vol → 目标 ${fmt(Pt,2)}%vol`;
-      try{ await navigator.clipboard.writeText(text); copyBtn.textContent = "已复制"; setTimeout(()=>copyBtn.textContent="复制结果",1200);}catch{}
+      const text = `【53° 雲 · 微醺之度】\n需添加原酒：${fmt(Va,1)} ml\n混合总量：${fmt(Vt,1)} ml\n配方：饮品 ${fmt(Vj,1)} ml + 原酒 ${fmt(Pa,2)}%vol → 目标 ${fmt(Pt,2)}%vol`;
+      try{ await navigator.clipboard.writeText(text); copyBtn.textContent = "已复制 ✓"; setTimeout(()=>copyBtn.textContent="复制配方",1400);}catch{}
     });
 
     // Init
