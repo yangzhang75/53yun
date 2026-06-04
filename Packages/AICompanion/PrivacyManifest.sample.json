@@ -1,0 +1,17 @@
+{
+  "_comment": "供员工① 合并进 YunApp 的 PrivacyInfo.xcprivacy。仅当启用云端 AI 时需要声明。AICompanion 默认本地兜底、不上传，则无需此项。",
+  "NSPrivacyTracking": false,
+  "NSPrivacyTrackingDomains": [],
+  "NSPrivacyCollectedDataTypes": [
+    {
+      "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeOtherUserContent",
+      "NSPrivacyCollectedDataTypeLinked": false,
+      "NSPrivacyCollectedDataTypeTracking": false,
+      "NSPrivacyCollectedDataTypePurposes": [
+        "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+      ],
+      "_note": "用户输入的口味描述文本，仅用于生成本次调酒推荐；不与账号关联、不用于追踪、生成后即丢弃。"
+    }
+  ],
+  "NSPrivacyAccessedAPITypes": []
+}

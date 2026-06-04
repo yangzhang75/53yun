@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+*.o
+
+# 保留：YunApp.xcodeproj（已提交，可直接打开）
+# 保留：xcshareddata/（共享 scheme）

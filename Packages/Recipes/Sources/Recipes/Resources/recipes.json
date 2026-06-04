@@ -1,0 +1,115 @@
+[
+  {
+    "id": "9F1A0001-0000-4000-A000-000000000001",
+    "name": "晨露 · 清饮",
+    "aroma": "qingxiang",
+    "components": [
+      { "volumeML": 40, "abv": 53 },
+      { "volumeML": 80, "abv": 0 }
+    ],
+    "targetABV": 18,
+    "tastingNote": "山泉化雪，一口清冽过喉，余味只剩干净的回甘。",
+    "flavor": { "mellow": 0.45, "strength": 0.42, "crisp": 0.92, "sweet": 0.30, "complexity": 0.40 }
+  },
+  {
+    "id": "9F1A0001-0000-4000-A000-000000000002",
+    "name": "青梅引",
+    "aroma": "qingxiang",
+    "components": [
+      { "volumeML": 35, "abv": 53 },
+      { "volumeML": 55, "abv": 0 },
+      { "volumeML": 60, "abv": 0 }
+    ],
+    "targetABV": 12,
+    "tastingNote": "青梅的酸甜先至，清香在尾端轻轻收束，气泡为它点上一笔留白。",
+    "flavor": { "mellow": 0.35, "strength": 0.25, "crisp": 0.80, "sweet": 0.78, "complexity": 0.45 }
+  },
+  {
+    "id": "9F1A0001-0000-4000-A000-000000000003",
+    "name": "竹露",
+    "aroma": "qingxiang",
+    "components": [
+      { "volumeML": 35, "abv": 53 },
+      { "volumeML": 90, "abv": 0 },
+      { "volumeML": 5, "abv": 0 }
+    ],
+    "targetABV": 14,
+    "tastingNote": "椰子水的清甜托起一缕薄荷，仿佛雨后竹林里的一口呼吸。",
+    "flavor": { "mellow": 0.40, "strength": 0.30, "crisp": 0.85, "sweet": 0.55, "complexity": 0.50 }
+  },
+  {
+    "id": "9F1A0002-0000-4000-A000-000000000004",
+    "name": "酱韵 · 纯饮",
+    "aroma": "jiangxiang",
+    "components": [
+      { "volumeML": 50, "abv": 53 },
+      { "volumeML": 10, "abv": 0 }
+    ],
+    "targetABV": 44,
+    "tastingNote": "一块冰唤醒酱香的层层叠叠，焦香、坚果与陈味次第铺开，空杯仍有余韵。",
+    "flavor": { "mellow": 0.90, "strength": 0.95, "crisp": 0.35, "sweet": 0.40, "complexity": 0.92 }
+  },
+  {
+    "id": "9F1A0002-0000-4000-A000-000000000005",
+    "name": "焦糖琥珀",
+    "aroma": "jiangxiang",
+    "components": [
+      { "volumeML": 40, "abv": 53 },
+      { "volumeML": 50, "abv": 0 },
+      { "volumeML": 5, "abv": 0 }
+    ],
+    "targetABV": 22,
+    "tastingNote": "温热的焦糖裹住醇厚的酱香，像琥珀里封存的一段暖意。",
+    "flavor": { "mellow": 0.82, "strength": 0.55, "crisp": 0.30, "sweet": 0.80, "complexity": 0.85 }
+  },
+  {
+    "id": "9F1A0002-0000-4000-A000-000000000006",
+    "name": "空杯香",
+    "aroma": "jiangxiang",
+    "components": [
+      { "volumeML": 45, "abv": 53 },
+      { "volumeML": 50, "abv": 0 }
+    ],
+    "targetABV": 25,
+    "tastingNote": "冷萃咖啡的苦韵与酱香的陈厚彼此成全，层次在舌面缓缓打开。",
+    "flavor": { "mellow": 0.78, "strength": 0.60, "crisp": 0.38, "sweet": 0.42, "complexity": 0.95 }
+  },
+  {
+    "id": "9F1A0003-0000-4000-A000-000000000007",
+    "name": "窖藏 · 绵柔",
+    "aroma": "nongxiang",
+    "components": [
+      { "volumeML": 40, "abv": 52 },
+      { "volumeML": 65, "abv": 0 }
+    ],
+    "targetABV": 20,
+    "tastingNote": "蜂蜜水抚平了浓香的棱角，窖香绵甜协调，入口如丝。",
+    "flavor": { "mellow": 0.80, "strength": 0.48, "crisp": 0.42, "sweet": 0.85, "complexity": 0.60 }
+  },
+  {
+    "id": "9F1A0003-0000-4000-A000-000000000008",
+    "name": "荔香醉",
+    "aroma": "nongxiang",
+    "components": [
+      { "volumeML": 25, "abv": 52 },
+      { "volumeML": 60, "abv": 0 },
+      { "volumeML": 45, "abv": 0 }
+    ],
+    "targetABV": 10,
+    "tastingNote": "鲜荔枝的馥郁与浓香一拍即合，气泡轻盈，是夏夜的微醺。",
+    "flavor": { "mellow": 0.50, "strength": 0.22, "crisp": 0.70, "sweet": 0.90, "complexity": 0.48 }
+  },
+  {
+    "id": "9F1A0003-0000-4000-A000-000000000009",
+    "name": "桂影",
+    "aroma": "nongxiang",
+    "components": [
+      { "volumeML": 30, "abv": 52 },
+      { "volumeML": 40, "abv": 12 },
+      { "volumeML": 40, "abv": 0 }
+    ],
+    "targetABV": 18,
+    "tastingNote": "桂花酿的甜香与浓香相互缠绕，冰沁之后是一段悠长的金秋记忆。",
+    "flavor": { "mellow": 0.68, "strength": 0.45, "crisp": 0.55, "sweet": 0.82, "complexity": 0.70 }
+  }
+]

@@ -1,0 +1,15 @@
+# SwiftLint 默认规则（全员统一）。安装：brew install swiftlint
+included:
+  - Packages
+  - YunApp/YunApp
+excluded:
+  - "**/.build"
+  - "**/Tests"
+disabled_rules:
+  - todo            # 允许 TODO(员工X) 协作标记
+  - trailing_comma  # 与 Xcode pbxproj 风格一致，放宽
+line_length:
+  warning: 140
+  error: 200
+identifier_name:
+  min_length: 1     # 允许 r/g/b、abv 等短变量名
