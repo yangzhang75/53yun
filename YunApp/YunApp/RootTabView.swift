@@ -1,5 +1,6 @@
 import SwiftUI
 import DesignSystem
+import Engine
 import Mixing
 import Recipes
 import Cellar
@@ -18,8 +19,24 @@ struct RootTabView: View {
 
     var body: some View {
         TabView(selection: $appState.selectedTab) {
-            tab(.mixing, module: MixingModule.self)
-            tab(.recipes, module: RecipesModule.self)
+            // 调制台：核心计算器，可接收配方「一键载入」预填（pendingRecipe 变化即重建）。
+            NavigationStack {
+                MixingCalculatorView(recipe: appState.pendingRecipe)
+                    .id(appState.pendingRecipe?.id)
+                    .navigationTitle("调制")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem { Label("调制", systemImage: "drop.fill") }
+            .tag(AppTab.mixing)
+
+            // 配方菜单：自带 NavigationStack，不再外套；点击「一键载入」→ 路由到调制台。
+            RecipeMenuView(onLoadIntoMixer: { recipe in
+                appState.pendingRecipe = recipe
+                appState.selectedTab = .mixing
+            })
+            .tabItem { Label("配方", systemImage: "list.bullet.rectangle.portrait") }
+            .tag(AppTab.recipes)
+
             tab(.cellar, module: CellarModule.self)
             tab(.authenticity, module: AuthenticityModule.self)
 

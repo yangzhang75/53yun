@@ -20,7 +20,7 @@ public enum MixingModule: YunModule {
     public static let tab = YunTab(title: "调制", systemImage: "drop.fill")
 
     public static func rootView() -> AnyView {
-        AnyView(MixingHomeView())
+        AnyView(MixingCalculatorView())
     }
 }
 
