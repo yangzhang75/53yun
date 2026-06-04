@@ -106,6 +106,16 @@ public struct MixingCalculatorView: View {
                     ForEach(VolumeUnit.allCases) { u in Text(u.displayName).tag(u) }
                 }
                 .pickerStyle(.segmented)
+                .onChange(of: unit) { oldUnit, newUnit in
+                    // 切单位时换算数值，保持真实体积不变（500毫升 → 62.5盖，仍是 500ml）。
+                    guard let v = Double(juiceText) else { return }
+                    let ml = v * oldUnit.milliliters(per: service.config)
+                    let perNew = newUnit.milliliters(per: service.config)
+                    if perNew > 0 { juiceText = Self.fmt(ml / perNew) }
+                }
+                Text("毫升 1 · 标准杯 30 · 分酒器 15 · 盖 8（ml）")
+                    .font(.yunBody(.caption))
+                    .foregroundStyle(YunColor.creamSecondary)
 
                 field(label: "原酒度数 · %vol", text: $baseABVText, placeholder: "例如 53")
                 aromaChips
