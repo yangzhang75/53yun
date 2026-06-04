@@ -166,8 +166,8 @@ public struct TastingCard<QR: View>: View {
         [("醇厚", recipe.flavor.mellow),
          ("烈度", recipe.flavor.strength),
          ("回甘", recipe.flavor.sweet),
-         ("绵柔", recipe.flavor.smooth),
-         ("香气", recipe.flavor.aroma)]
+         ("爽净", recipe.flavor.crisp),
+         ("层次", recipe.flavor.complexity)]
     }
 
     // MARK: - 品鉴语

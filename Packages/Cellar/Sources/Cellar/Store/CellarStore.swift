@@ -12,10 +12,15 @@ import CellarCore
 @Observable
 public final class CellarStore {
     private let context: ModelContext
+    /// 强引用持有容器，防止内存容器被提前释放导致 context 失效而崩溃。
+    private let retainedContainer: ModelContainer?
     public let merit: MeritEngine
 
-    public init(context: ModelContext, merit: MeritEngine = MeritEngine()) {
+    public init(context: ModelContext,
+                container: ModelContainer? = nil,
+                merit: MeritEngine = MeritEngine()) {
         self.context = context
+        self.retainedContainer = container
         self.merit = merit
     }
 
@@ -151,8 +156,8 @@ public final class CellarStore {
         do {
             try context.save()
         } catch {
-            // SwiftData 在 autosave 下通常无需显式 save；此处兜底记录
-            assertionFailure("Cellar 保存失败: \(error)")
+            // SwiftData 在 autosave 下通常无需显式 save；保存失败仅记录，不崩溃。
+            print("⚠️ Cellar 保存失败: \(error)")
         }
     }
 }

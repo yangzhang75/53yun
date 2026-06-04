@@ -18,15 +18,15 @@ final class AppState: ObservableObject {
     /// 由深链拿到、待按 id 取回的配方标识
     @Published var pendingRecipeID: String?
 
-    func handle(deepLink: YunDeepLink) {
-        switch deepLink {
+    func handle(_ resolution: DeepLinkResolution) {
+        switch resolution {
         case .recipe(let recipe):
             pendingRecipe = recipe
             selectedTab = .mixing
-        case .recipeID(let id):
+        case .needsLookup(let id):
             pendingRecipeID = id
             selectedTab = .recipes
-        case .unknown:
+        case .failed:
             break
         }
     }

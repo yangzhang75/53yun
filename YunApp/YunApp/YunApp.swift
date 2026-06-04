@@ -16,7 +16,7 @@ struct YunApp: App {
                 .preferredColorScheme(.dark) // 墨黑底调性，固定深色
                 .tint(YunColor.gold)
                 .onOpenURL { url in
-                    appState.handle(deepLink: DeepLinkRouter().resolve(url))
+                    appState.handle(DeepLinkRouter().handle(url))
                 }
         }
     }

@@ -16,7 +16,7 @@ public enum SampleData {
         ],
         targetABV: 13.3,
         tastingNote: "初入清冽如雪，尾韵回甘绵长；以清香基酒佐冰饮，烈而不燥，适宜微醺一刻。",
-        flavor: FlavorProfile(mellow: 0.62, strength: 0.45, sweet: 0.55, smooth: 0.78, aroma: 0.7)
+        flavor: FlavorProfile(mellow: 0.62, strength: 0.45, crisp: 0.55, sweet: 0.55, complexity: 0.7)
     )
 
     /// 预览用深链字符串（由示例配方编码）。

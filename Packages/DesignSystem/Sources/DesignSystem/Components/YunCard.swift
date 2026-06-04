@@ -27,6 +27,24 @@ public struct YunCard<Content: View>: View {
     }
 }
 
+// MARK: - View 修饰符版
+public extension View {
+    /// 将任意视图包成烫金卡片样式（等价于放进 `YunCard { }`）。
+    func yunCard(padding: CGFloat = YunMetrics.spacingM) -> some View {
+        self
+            .padding(padding)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: YunMetrics.cardRadius, style: .continuous)
+                    .fill(YunColor.card)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: YunMetrics.cardRadius, style: .continuous)
+                    .stroke(YunColor.hairline, lineWidth: YunMetrics.hairlineWidth)
+            )
+    }
+}
+
 #Preview("YunCard") {
     ZStack {
         MistBackground()

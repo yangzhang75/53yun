@@ -23,8 +23,19 @@
 		FR00000000000000000001 /* YunApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EX00000000000000000001 /* Exceptions for "YunApp" folder in "YunApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+				Resources/YunApp.entitlements,
+			);
+			target = NT00000000000000000001 /* YunApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		SG00000000000000000001 /* YunApp */ = {isa = PBXFileSystemSynchronizedRootGroup; path = YunApp; sourceTree = "<group>"; };
+		SG00000000000000000001 /* YunApp */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EX00000000000000000001 /* Exceptions for "YunApp" folder in "YunApp" target */, ); path = YunApp; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */

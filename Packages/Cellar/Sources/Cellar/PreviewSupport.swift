@@ -38,7 +38,7 @@ public enum CellarSample {
     public static func makeStore(empty: Bool = false) -> CellarStore {
         // 内存容器：预览不落盘
         let container = try! CellarSchema.makeContainer(inMemory: true)
-        let store = CellarStore(context: container.mainContext)
+        let store = CellarStore(context: container.mainContext, container: container)
         guard !empty else { return store }
 
         store.saveRecipe(recipes[0])
