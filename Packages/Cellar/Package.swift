@@ -19,11 +19,15 @@ let package = Package(
         .library(name: "Cellar", targets: ["Cellar"]),
         .library(name: "CellarCore", targets: ["CellarCore"]),
     ],
+    dependencies: [
+        // 集成接入 DesignSystem：提供 YunModule / YunTab 入口契约。
+        .package(path: "../DesignSystem")
+    ],
     targets: [
         // 纯逻辑层：无 SwiftData / SwiftUI 依赖
         .target(name: "CellarCore"),
         // UI + 持久化层：SwiftData @Model + SwiftUI View + Preview
-        .target(name: "Cellar", dependencies: ["CellarCore"]),
+        .target(name: "Cellar", dependencies: ["CellarCore", "DesignSystem"]),
         // 纯逻辑测试：本环境可直接运行
         .testTarget(name: "CellarCoreTests", dependencies: ["CellarCore"]),
         // 持久化 / 映射集成测试：需要 Xcode（SwiftData 宏）

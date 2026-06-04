@@ -23,12 +23,14 @@ let package = Package(
         )
     ],
     dependencies: [
-        // 集成时由员工① 在主工程接入 DesignSystem。
+        // 集成接入 DesignSystem：提供 YunModule / YunTab 入口契约。
         // 本包内置最小暗金主题（AuthTheme）作为兜底，集成后可平滑切换。
+        .package(path: "../DesignSystem")
     ],
     targets: [
         .target(
-            name: "Authenticity"
+            name: "Authenticity",
+            dependencies: ["DesignSystem"]
         ),
         .testTarget(
             name: "AuthenticityTests",

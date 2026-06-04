@@ -19,15 +19,14 @@ let package = Package(
         .library(name: "Health", targets: ["Health"])
     ],
     dependencies: [
-        // 集成阶段由员工① 接入：
+        // 集成接入 DesignSystem：提供 YunModule / YunTab 入口契约。
         //   .package(path: "../Engine"),        // 提供 MixResult（纯酒精摄入量）
-        //   .package(path: "../DesignSystem"),  // 提供 颜色/字体/组件 token
-        // 当前 Health 包保持自包含、可独立构建与测试。
+        .package(path: "../DesignSystem")
     ],
     targets: [
         .target(
             name: "Health",
-            dependencies: []
+            dependencies: ["DesignSystem"]
         ),
         .testTarget(
             name: "HealthTests",

@@ -26,7 +26,8 @@ let package = Package(
     dependencies: [
         // 集成时取消注释，并删除 EngineContract 兜底契约：
         // .package(path: "../Engine"),
-        // .package(path: "../DesignSystem"),
+        // 集成接入 DesignSystem：提供 YunModule / YunTab 入口契约。
+        .package(path: "../DesignSystem"),
     ],
     targets: [
         // 纯逻辑层：无 SwiftUI 依赖，全部可单测。
@@ -41,7 +42,7 @@ let package = Package(
             name: "AICompanion",
             dependencies: [
                 "AICompanionCore",
-                // .product(name: "DesignSystem", package: "DesignSystem"),
+                .product(name: "DesignSystem", package: "DesignSystem"),
             ]
         ),
         .testTarget(

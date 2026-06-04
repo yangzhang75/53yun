@@ -12,13 +12,16 @@ let package = Package(
     ],
     dependencies: [
         // 共享数据契约（Recipe 等）来自 Engine（员工②）。
-        .package(path: "../Engine")
+        .package(path: "../Engine"),
+        // 集成接入 DesignSystem：提供 YunModule / YunTab 入口契约。
+        .package(path: "../DesignSystem")
     ],
     targets: [
         .target(
             name: "DeepLink",
             dependencies: [
-                .product(name: "Engine", package: "Engine")
+                .product(name: "Engine", package: "Engine"),
+                .product(name: "DesignSystem", package: "DesignSystem")
             ]
         ),
         .testTarget(
