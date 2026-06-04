@@ -37,7 +37,15 @@ struct RootTabView: View {
             .tabItem { Label("配方", systemImage: "list.bullet.rectangle.portrait") }
             .tag(AppTab.recipes)
 
-            tab(.cellar, module: CellarModule.self)
+            // 我的酒柜：点「载入」→ 桥接成 Engine.Recipe 路由到调制台。
+            NavigationStack {
+                CellarTab()
+                    .navigationTitle("我的酒柜")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem { Label("我的酒柜", systemImage: "archivebox.fill") }
+            .tag(AppTab.cellar)
+
             tab(.authenticity, module: AuthenticityModule.self)
 
             NavigationStack { MeView() }
