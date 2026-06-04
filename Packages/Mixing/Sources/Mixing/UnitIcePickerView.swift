@@ -24,15 +24,15 @@ public struct UnitIcePickerView: View {
             section(title: "单位") {
                 segmented(VolumeUnit.allCases, selection: $unit) { $0.displayName }
                 Text(unitHint)
-                    .font(YunFont.body(12))
-                    .foregroundStyle(YunColor.textSecondary)
+                    .font(.yunBody(.footnote))
+                    .foregroundStyle(YunColor.creamSecondary)
             }
 
             section(title: "冰量") {
                 segmented(IceLevel.allCases, selection: $ice) { $0.displayName }
                 Text(iceHint)
-                    .font(YunFont.body(12))
-                    .foregroundStyle(YunColor.textSecondary)
+                    .font(.yunBody(.footnote))
+                    .foregroundStyle(YunColor.creamSecondary)
             }
         }
         .yunCard()
@@ -45,8 +45,8 @@ public struct UnitIcePickerView: View {
                                         @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(YunFont.serifTitle(16))
-                .foregroundStyle(YunColor.textPrimary)
+                .font(.yunTitle(16, weight: .semibold))
+                .foregroundStyle(YunColor.cream)
             content()
         }
     }
@@ -63,10 +63,10 @@ public struct UnitIcePickerView: View {
                     selection.wrappedValue = item
                 } label: {
                     Text(label(item))
-                        .font(YunFont.body(14))
+                        .font(.yunBody(.body))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
-                        .foregroundStyle(selected ? YunColor.ink : YunColor.textPrimary)
+                        .foregroundStyle(selected ? YunColor.ink : YunColor.cream)
                         .background(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(selected ? YunColor.gold : Color.clear)
@@ -126,8 +126,8 @@ private struct PickerPreviewHost: View {
         VStack(spacing: 16) {
             UnitIcePickerView(unit: $unit, ice: $ice)
             Text("当前：\(unit.displayName) · \(ice.displayName)")
-                .font(YunFont.body(13))
-                .foregroundStyle(YunColor.textSecondary)
+                .font(.yunBody(.footnote))
+                .foregroundStyle(YunColor.creamSecondary)
         }
     }
 }

@@ -56,13 +56,13 @@ public enum CardTexture: String, CaseIterable, Sendable, Identifiable {
         switch self {
         case .inkGradient:
             LinearGradient(
-                colors: [YunColor.ink, YunColor.inkDeep],
+                colors: [YunColor.ink, YunColor.ink],
                 startPoint: .top, endPoint: .bottom
             )
 
         case .goldPinstripe:
             ZStack {
-                YunColor.inkDeep
+                YunColor.ink
                 Canvas { ctx, canvasSize in
                     let gap: CGFloat = 14
                     var x: CGFloat = -canvasSize.height
@@ -78,7 +78,7 @@ public enum CardTexture: String, CaseIterable, Sendable, Identifiable {
 
         case .spotlight:
             ZStack {
-                YunColor.inkDeep
+                YunColor.ink
                 RadialGradient(
                     colors: [YunColor.gold.opacity(0.18), .clear],
                     center: .init(x: 0.5, y: 0.38),
@@ -89,7 +89,7 @@ public enum CardTexture: String, CaseIterable, Sendable, Identifiable {
 
         case .goldRipple:
             ZStack {
-                LinearGradient(colors: [YunColor.ink, YunColor.inkDeep],
+                LinearGradient(colors: [YunColor.ink, YunColor.ink],
                                startPoint: .top, endPoint: .bottom)
                 Canvas { ctx, canvasSize in
                     let center = CGPoint(x: canvasSize.width / 2, y: canvasSize.height * 0.42)

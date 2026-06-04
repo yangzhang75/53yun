@@ -21,7 +21,7 @@ public struct QRCodeSlot: View {
     public var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 6)
-                .fill(YunColor.paper.opacity(0.06))
+                .fill(YunColor.cream.opacity(0.06))
             RoundedRectangle(cornerRadius: 6)
                 .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
                 .foregroundColor(YunColor.gold.opacity(0.5))
@@ -31,7 +31,7 @@ public struct QRCodeSlot: View {
                     .foregroundColor(YunColor.gold.opacity(0.7))
                 Text("扫码品鉴")
                     .font(.system(size: 9))
-                    .foregroundColor(YunColor.paperMuted)
+                    .foregroundColor(YunColor.creamSecondary)
             }
         }
         .frame(width: side, height: side)

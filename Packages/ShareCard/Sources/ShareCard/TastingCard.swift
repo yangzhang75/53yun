@@ -50,7 +50,7 @@ public struct TastingCard<QR: View>: View {
             .padding(pad)
         }
         .frame(width: size.width, height: size.height)
-        .background(YunColor.inkDeep)
+        .background(YunColor.ink)
         .overlay(goldBorder)
         .clipShape(RoundedRectangle(cornerRadius: size.width * 0.045))
     }
@@ -61,12 +61,12 @@ public struct TastingCard<QR: View>: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 2) {
                 Text("53° 雲")
-                    .font(YunFont.serifTitle(style.ratio.baseSize.width * 0.075))
+                    .font(.yunTitle(style.ratio.baseSize.width * 0.075, weight: .semibold))
                     .foregroundStyle(YunColor.goldGradient)
                 Text("YÚN · 微醺之度")
                     .font(.system(size: style.ratio.baseSize.width * 0.026, weight: .light))
                     .tracking(2)
-                    .foregroundColor(YunColor.paperMuted)
+                    .foregroundColor(YunColor.creamSecondary)
             }
             Spacer()
             aromaBadge
@@ -75,7 +75,7 @@ public struct TastingCard<QR: View>: View {
 
     private var aromaBadge: some View {
         Text(recipe.aroma.displayName)
-            .font(YunFont.serifBody(style.ratio.baseSize.width * 0.038))
+            .font(.yunBody(.body))
             .foregroundColor(YunColor.ink)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
@@ -87,8 +87,8 @@ public struct TastingCard<QR: View>: View {
     private var titleBlock: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(recipe.name)
-                .font(YunFont.serifTitle(style.ratio.baseSize.width * 0.10))
-                .foregroundColor(YunColor.paper)
+                .font(.yunTitle(style.ratio.baseSize.width * 0.10, weight: .semibold))
+                .foregroundColor(YunColor.cream)
                 .lineLimit(2)
                 .minimumScaleFactor(0.6)
             Rectangle()
@@ -103,15 +103,15 @@ public struct TastingCard<QR: View>: View {
         VStack(alignment: .leading, spacing: style.ratio.baseSize.height * 0.018) {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
                 Text(String(format: "%.1f", recipe.targetABV))
-                    .font(YunFont.mono(style.ratio.baseSize.width * 0.13))
+                    .font(.system(.footnote, design: .monospaced))
                     .foregroundStyle(YunColor.goldGradient)
                 Text("%vol")
                     .font(.system(size: style.ratio.baseSize.width * 0.035, weight: .light))
-                    .foregroundColor(YunColor.paperMuted)
+                    .foregroundColor(YunColor.creamSecondary)
                 Spacer()
                 Text("目标度数")
-                    .font(YunFont.serifBody(style.ratio.baseSize.width * 0.032))
-                    .foregroundColor(YunColor.paperMuted)
+                    .font(.yunBody(.footnote))
+                    .foregroundColor(YunColor.creamSecondary)
             }
 
             ratioRow
@@ -122,17 +122,17 @@ public struct TastingCard<QR: View>: View {
     private var ratioRow: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("配比")
-                .font(YunFont.serifBody(style.ratio.baseSize.width * 0.030))
+                .font(.yunBody(.footnote))
                 .foregroundColor(YunColor.gold)
             ForEach(Array(recipe.components.enumerated()), id: \.offset) { _, c in
                 HStack {
                     Text(String(format: "%.0f ml", c.volumeML))
-                        .font(YunFont.mono(style.ratio.baseSize.width * 0.034))
-                        .foregroundColor(YunColor.paper)
+                        .font(.system(.footnote, design: .monospaced))
+                        .foregroundColor(YunColor.cream)
                     Spacer()
                     Text(String(format: "%.0f%%vol", c.abv))
-                        .font(YunFont.mono(style.ratio.baseSize.width * 0.030))
-                        .foregroundColor(YunColor.paperMuted)
+                        .font(.system(.footnote, design: .monospaced))
+                        .foregroundColor(YunColor.creamSecondary)
                 }
             }
         }
@@ -145,12 +145,12 @@ public struct TastingCard<QR: View>: View {
             ForEach(flavorDimensions, id: \.0) { name, value in
                 HStack(spacing: 8) {
                     Text(name)
-                        .font(YunFont.serifBody(style.ratio.baseSize.width * 0.030))
-                        .foregroundColor(YunColor.paperMuted)
+                        .font(.yunBody(.footnote))
+                        .foregroundColor(YunColor.creamSecondary)
                         .frame(width: style.ratio.baseSize.width * 0.10, alignment: .leading)
                     GeometryReader { geo in
                         ZStack(alignment: .leading) {
-                            Capsule().fill(YunColor.paper.opacity(0.08))
+                            Capsule().fill(YunColor.cream.opacity(0.08))
                             Capsule()
                                 .fill(YunColor.goldGradient)
                                 .frame(width: geo.size.width * max(0, min(1, value)))
@@ -174,8 +174,8 @@ public struct TastingCard<QR: View>: View {
 
     private var tastingNote: some View {
         Text(recipe.tastingNote)
-            .font(YunFont.serifBody(style.ratio.baseSize.width * 0.034))
-            .foregroundColor(YunColor.paper.opacity(0.85))
+            .font(.yunBody(.body))
+            .foregroundColor(YunColor.cream.opacity(0.85))
             .lineSpacing(4)
             .lineLimit(3)
             .fixedSize(horizontal: false, vertical: true)
@@ -188,9 +188,9 @@ public struct TastingCard<QR: View>: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("请理性饮酒 · 未成年人请勿饮酒")
                     .font(.system(size: style.ratio.baseSize.width * 0.026, weight: .regular))
-                    .foregroundColor(YunColor.paperMuted)
+                    .foregroundColor(YunColor.creamSecondary)
                 Text("扫码还原本配方")
-                    .font(YunFont.serifBody(style.ratio.baseSize.width * 0.028))
+                    .font(.yunBody(.caption))
                     .foregroundColor(YunColor.gold)
             }
             Spacer()

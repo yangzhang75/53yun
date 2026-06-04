@@ -10,10 +10,10 @@ import DesignSystem
 // rootView() 契约，这里提供一个自包含的占位主页 MixingHomeView，使用 DesignSystem
 // 的真实色彩 / 字体令牌，可零参独立运行；集成后由真正的调制器界面替换。
 //
-// 注意：UnitIcePickerView.swift 当前引用了 DesignSystem 中不存在的 `YunFont.*` /
-// `YunColor.textPrimary/textSecondary` 令牌（应为 `Font.yunBody` / `YunColor.cream`
-// 等），那是本包预先存在的问题，未在本入口适配中触及。本入口刻意不嵌入
-// UnitIcePickerView，以免把该编译问题带入主工程集成路径。
+// 历史说明：UnitIcePickerView.swift 早期引用过 DesignSystem 中已不存在的字体 /
+// 次级文字色令牌，现已统一迁移到 Font.yunBody / Font.yunTitle 与 YunColor.cream /
+// YunColor.creamSecondary 等真实令牌。本入口仍刻意不嵌入 UnitIcePickerView，
+// 保持占位主页的最小依赖。
 
 public enum MixingModule: YunModule {
 

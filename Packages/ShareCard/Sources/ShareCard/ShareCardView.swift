@@ -51,7 +51,7 @@ public struct ShareCardView<QR: View>: View {
                     preview: SharePreview(recipe.name, image: previewImage ?? Image(systemName: "wineglass"))
                 ) {
                     Label("分享品鉴卡", systemImage: "square.and.arrow.up")
-                        .font(YunFont.serifBody(17))
+                        .font(.yunBody(.body))
                         .foregroundColor(YunColor.ink)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
@@ -67,7 +67,7 @@ public struct ShareCardView<QR: View>: View {
                     .tint(YunColor.gold)
             }
         }
-        .background(YunColor.inkDeep.ignoresSafeArea())
+        .background(YunColor.ink.ignoresSafeArea())
         .task(id: style) { await render() }
     }
 
